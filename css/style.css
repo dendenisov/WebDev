@@ -2,6 +2,7 @@
 
 body {
     background-color: grey;
+    font-family: 'Open Sans Semibold';
 }
 
 .logo {
@@ -26,7 +27,6 @@ ul, li {
 }
 
 .menu__item a {
-    font-family: 'Open Sans Semibold';
     font-size: 20px;
     color: #212121;
 }
@@ -34,4 +34,39 @@ ul, li {
 .menu__item a:hover {
     text-decoration: none;
     color: #cecece;
+}
+
+.header > div {
+    background-image: url('../img/header.png');
+    padding: 180px 0;
+    text-align: center;
+    color: #fff;
+    background-size: cover;
+    background-position: 0 100%;
+}
+
+.header__title {
+    font-size: 55px;
+}
+
+.header__text {
+    font-size: 20px;
+    margin-bottom: 100px;
+}
+
+.button {
+    padding: 10px 25px;
+    margin: 0 10px;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.button_empty {
+    background: transparent;
+    border: 2px solid white;
+}
+
+.button_full {
+    background: #00897b;
+    border: 2px solid #00897b;
 }
