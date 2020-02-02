@@ -90,10 +90,9 @@ ul, li {
     font-weight: bold;
 }
 
-.about__text {
+.about_text {
     color: #212121;
     font-size: 15px;
-    padding-bottom: 100px;
 }
 
 .about__h3 {
@@ -101,4 +100,35 @@ ul, li {
     margin-top: 20px;
     font-family: 'Open Sans Semibold';
     font-size: 20px;
+}
+
+.services {
+    color: black;
+    background: #e4fdf9;
+    text-align: center;
+    padding-top: 165px;
+    padding-bottom: 125px;
+}
+
+.our_card {
+    padding: 50px 20px 40px;
+    background: white;
+    transition: 0.3s;
+}
+
+.icon {
+    color: black;
+    font-size: 60px;   
+}
+
+.button-services {
+    border: 1px solid black;
+    background: transparent;
+    padding: 14px 12px 14px;
+    font-family: 'Open Sans Semibold';
+}
+
+.our_card:hover {
+    background: #00897b;
+    color: white;
 }
