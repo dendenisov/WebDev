@@ -36,7 +36,7 @@ ul, li {
     color: #cecece;
 }
 
-.header > div {
+.header {
     background-image: url('../img/header.png');
     padding: 180px 0;
     text-align: center;
@@ -59,6 +59,8 @@ ul, li {
     margin: 0 10px;
     color: #fff;
     transition: 0.3s;
+    background: #00897b;
+    border: 2px solid #00897b;
 }
 
 .button_empty {
@@ -66,16 +68,16 @@ ul, li {
     border: 2px solid white;
 }
 
-.button_full {
-    background: #00897b;
-    border: 2px solid #00897b;
+.button:hover {
+    background: transparent;
+    border: 2px solid white;
 }
 
-.button_empty:hover,
+/* .button_empty:hover,
 .button_full:hover {
     border: 2px dotted #fff;
     background: #0f574f;
-}
+} */
 
 .about {
     color: black;
@@ -90,9 +92,10 @@ ul, li {
     font-weight: bold;
 }
 
-.about_text {
+.about__text {
     color: #212121;
     font-size: 15px;
+    margin-bottom: 70px;
 }
 
 .about__h3 {
@@ -111,9 +114,10 @@ ul, li {
 }
 
 .our_card {
-    padding: 50px 20px 40px;
+    padding: 50px 35px 40px;
     background: white;
     transition: 0.3s;
+    margin-bottom: 30px;
 }
 
 .icon {
@@ -126,9 +130,43 @@ ul, li {
     background: transparent;
     padding: 14px 12px 14px;
     font-family: 'Open Sans Semibold';
+    transition: 0.3s;
 }
 
 .our_card:hover {
     background: #00897b;
     color: white;
+    box-shadow: 0px 0px 22px -1px rgba(0,0,0,0.75);
+}
+
+.our_card:hover .button-services {
+    color: white;
+    transition: 0.3s;
+    border: 1px solid white;
+}
+
+.our_card:hover .icon {
+    color: white;
+    transition: 0.3s;
+}
+
+.portfolio {
+    padding-top: 120px;
+    padding-bottom: 135px;
+    text-align: center;
+}
+
+.portfolio button:hover {
+    color: black;
+    border: 2px solid #00897b;
+    background: transparent;
+}
+
+.portfolio img {
+    margin-bottom: 30px;
+
+}
+
+.filter {
+    padding: 120px 0;
 }
