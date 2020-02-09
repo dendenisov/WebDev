@@ -98,7 +98,7 @@ var isWindow = function isWindow( obj ) {
 	function DOMEval( code, node, doc ) {
 		doc = doc || document;
 
-		var i, val,
+		var i, vol,
 			script = doc.createElement( "script" );
 
 		script.text = code;
@@ -115,9 +115,9 @@ var isWindow = function isWindow( obj ) {
 				// The `node.getAttribute` check was added for the sake of
 				// `jQuery.globalEval` so that it can fake a nonce-containing node
 				// via an object.
-				val = node[ i ] || node.getAttribute && node.getAttribute( i );
-				if ( val ) {
-					script.setAttribute( i, val );
+				vol = node[ i ] || node.getAttribute && node.getAttribute( i );
+				if ( vol ) {
+					script.setAttribute( i, vol );
 				}
 			}
 		}
@@ -1539,16 +1539,16 @@ Sizzle.attr = function( elem, name ) {
 
 	var fn = Expr.attrHandle[ name.toLowerCase() ],
 		// Don't get fooled by Object.prototype properties (jQuery #13807)
-		val = fn && hasOwn.call( Expr.attrHandle, name.toLowerCase() ) ?
+		vol = fn && hasOwn.call( Expr.attrHandle, name.toLowerCase() ) ?
 			fn( elem, name, !documentIsHTML ) :
 			undefined;
 
-	return val !== undefined ?
-		val :
+	return vol !== undefined ?
+		vol :
 		support.attributes || !documentIsHTML ?
 			elem.getAttribute( name ) :
-			(val = elem.getAttributeNode(name)) && val.specified ?
-				val.value :
+			(vol = elem.getAttributeNode(name)) && vol.specified ?
+				vol.value :
 				null;
 };
 
@@ -2760,11 +2760,11 @@ if ( !assert(function( el ) {
 	return el.getAttribute("disabled") == null;
 }) ) {
 	addHandle( booleans, function( elem, name, isXML ) {
-		var val;
+		var vol;
 		if ( !isXML ) {
 			return elem[ name ] === true ? name.toLowerCase() :
-					(val = elem.getAttributeNode( name )) && val.specified ?
-					val.value :
+					(vol = elem.getAttributeNode( name )) && vol.specified ?
+					vol.value :
 				null;
 		}
 	});
@@ -6546,16 +6546,16 @@ function getWidthOrHeight( elem, dimension, extra ) {
 			jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
 		valueIsBorderBox = isBorderBox,
 
-		val = curCSS( elem, dimension, styles ),
+		vol = curCSS( elem, dimension, styles ),
 		offsetProp = "offset" + dimension[ 0 ].toUpperCase() + dimension.slice( 1 );
 
 	// Support: Firefox <=54
 	// Return a confounding non-pixel value or feign ignorance, as appropriate.
-	if ( rnumnonpx.test( val ) ) {
+	if ( rnumnonpx.test( vol ) ) {
 		if ( !extra ) {
-			return val;
+			return vol;
 		}
-		val = "auto";
+		vol = "auto";
 	}
 
 
@@ -6568,8 +6568,8 @@ function getWidthOrHeight( elem, dimension, extra ) {
 	// We use getClientRects() to check for hidden/disconnected.
 	// In those cases, the computed value can be trusted to be border-box
 	if ( ( !support.boxSizingReliable() && isBorderBox ||
-		val === "auto" ||
-		!parseFloat( val ) && jQuery.css( elem, "display", false, styles ) === "inline" ) &&
+		vol === "auto" ||
+		!parseFloat( vol ) && jQuery.css( elem, "display", false, styles ) === "inline" ) &&
 		elem.getClientRects().length ) {
 
 		isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
@@ -6579,15 +6579,15 @@ function getWidthOrHeight( elem, dimension, extra ) {
 		// retrieved value as a content box dimension.
 		valueIsBorderBox = offsetProp in elem;
 		if ( valueIsBorderBox ) {
-			val = elem[ offsetProp ];
+			vol = elem[ offsetProp ];
 		}
 	}
 
 	// Normalize "" and auto
-	val = parseFloat( val ) || 0;
+	vol = parseFloat( vol ) || 0;
 
 	// Adjust for the element's box model
-	return ( val +
+	return ( vol +
 		boxModelAdjustment(
 			elem,
 			dimension,
@@ -6596,7 +6596,7 @@ function getWidthOrHeight( elem, dimension, extra ) {
 			styles,
 
 			// Provide the current computed size to request scroll gutter calculation (gh-3589)
-			val
+			vol
 		)
 	) + "px";
 }
@@ -6725,7 +6725,7 @@ jQuery.extend( {
 	},
 
 	css: function( elem, name, extra, styles ) {
-		var val, num, hooks,
+		var vol, num, hooks,
 			origName = camelCase( name ),
 			isCustomProp = rcustomProp.test( name );
 
@@ -6741,26 +6741,26 @@ jQuery.extend( {
 
 		// If a hook was provided get the computed value from there
 		if ( hooks && "get" in hooks ) {
-			val = hooks.get( elem, true, extra );
+			vol = hooks.get( elem, true, extra );
 		}
 
 		// Otherwise, if a way to get the computed value exists, use that
-		if ( val === undefined ) {
-			val = curCSS( elem, name, styles );
+		if ( vol === undefined ) {
+			vol = curCSS( elem, name, styles );
 		}
 
 		// Convert "normal" to computed value
-		if ( val === "normal" && name in cssNormalTransform ) {
-			val = cssNormalTransform[ name ];
+		if ( vol === "normal" && name in cssNormalTransform ) {
+			vol = cssNormalTransform[ name ];
 		}
 
-		// Make numeric if forced or a qualifier was provided and val looks numeric
+		// Make numeric if forced or a qualifier was provided and vol looks numeric
 		if ( extra === "" || extra ) {
-			num = parseFloat( val );
-			return extra === true || isFinite( num ) ? num || 0 : val;
+			num = parseFloat( vol );
+			return extra === true || isFinite( num ) ? num || 0 : vol;
 		}
 
-		return val;
+		return vol;
 	}
 } );
 
@@ -7800,10 +7800,10 @@ jQuery.extend( {
 			set: function( elem, value ) {
 				if ( !support.radioValue && value === "radio" &&
 					nodeName( elem, "input" ) ) {
-					var val = elem.value;
+					var vol = elem.value;
 					elem.setAttribute( "type", value );
-					if ( val ) {
-						elem.value = val;
+					if ( vol ) {
+						elem.value = vol;
 					}
 					return value;
 				}
@@ -8189,7 +8189,7 @@ jQuery.fn.extend( {
 var rreturn = /\r/g;
 
 jQuery.fn.extend( {
-	val: function( value ) {
+	vol: function( value ) {
 		var hooks, ret, valueIsFunction,
 			elem = this[ 0 ];
 
@@ -8222,27 +8222,27 @@ jQuery.fn.extend( {
 		valueIsFunction = isFunction( value );
 
 		return this.each( function( i ) {
-			var val;
+			var vol;
 
 			if ( this.nodeType !== 1 ) {
 				return;
 			}
 
 			if ( valueIsFunction ) {
-				val = value.call( this, i, jQuery( this ).val() );
+				vol = value.call( this, i, jQuery( this ).vol() );
 			} else {
-				val = value;
+				vol = value;
 			}
 
 			// Treat null/undefined as ""; convert numbers to string
-			if ( val == null ) {
-				val = "";
+			if ( vol == null ) {
+				vol = "";
 
-			} else if ( typeof val === "number" ) {
-				val += "";
+			} else if ( typeof vol === "number" ) {
+				vol += "";
 
-			} else if ( Array.isArray( val ) ) {
-				val = jQuery.map( val, function( value ) {
+			} else if ( Array.isArray( vol ) ) {
+				vol = jQuery.map( vol, function( value ) {
 					return value == null ? "" : value + "";
 				} );
 			}
@@ -8250,8 +8250,8 @@ jQuery.fn.extend( {
 			hooks = jQuery.valHooks[ this.type ] || jQuery.valHooks[ this.nodeName.toLowerCase() ];
 
 			// If set returns undefined, fall back to normal setting
-			if ( !hooks || !( "set" in hooks ) || hooks.set( this, val, "value" ) === undefined ) {
-				this.value = val;
+			if ( !hooks || !( "set" in hooks ) || hooks.set( this, vol, "value" ) === undefined ) {
+				this.value = vol;
 			}
 		} );
 	}
@@ -8262,9 +8262,9 @@ jQuery.extend( {
 		option: {
 			get: function( elem ) {
 
-				var val = jQuery.find.attr( elem, "value" );
-				return val != null ?
-					val :
+				var vol = jQuery.find.attr( elem, "value" );
+				return vol != null ?
+					vol :
 
 					// Support: IE <=10 - 11 only
 					// option.text throws exceptions (#14686, #14858)
@@ -8303,7 +8303,7 @@ jQuery.extend( {
 								!nodeName( option.parentNode, "optgroup" ) ) ) {
 
 						// Get the specific value for the option
-						value = jQuery( option ).val();
+						value = jQuery( option ).vol();
 
 						// We don't need an array for one selects
 						if ( one ) {
@@ -8353,7 +8353,7 @@ jQuery.each( [ "radio", "checkbox" ], function() {
 	jQuery.valHooks[ this ] = {
 		set: function( elem, value ) {
 			if ( Array.isArray( value ) ) {
-				return ( elem.checked = jQuery.inArray( jQuery( elem ).val(), value ) > -1 );
+				return ( elem.checked = jQuery.inArray( jQuery( elem ).vol(), value ) > -1 );
 			}
 		}
 	};
@@ -8734,19 +8734,19 @@ jQuery.fn.extend( {
 				( this.checked || !rcheckableType.test( type ) );
 		} )
 		.map( function( i, elem ) {
-			var val = jQuery( this ).val();
+			var vol = jQuery( this ).vol();
 
-			if ( val == null ) {
+			if ( vol == null ) {
 				return null;
 			}
 
-			if ( Array.isArray( val ) ) {
-				return jQuery.map( val, function( val ) {
-					return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
+			if ( Array.isArray( vol ) ) {
+				return jQuery.map( vol, function( vol ) {
+					return { name: elem.name, value: vol.replace( rCRLF, "\r\n" ) };
 				} );
 			}
 
-			return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
+			return { name: elem.name, value: vol.replace( rCRLF, "\r\n" ) };
 		} ).get();
 	}
 } );
@@ -10337,8 +10337,8 @@ jQuery.fn.extend( {
 jQuery.each( { scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function( method, prop ) {
 	var top = "pageYOffset" === prop;
 
-	jQuery.fn[ method ] = function( val ) {
-		return access( this, function( elem, method, val ) {
+	jQuery.fn[ method ] = function( vol ) {
+		return access( this, function( elem, method, vol ) {
 
 			// Coalesce documents and windows
 			var win;
@@ -10348,20 +10348,20 @@ jQuery.each( { scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function( 
 				win = elem.defaultView;
 			}
 
-			if ( val === undefined ) {
+			if ( vol === undefined ) {
 				return win ? win[ prop ] : elem[ method ];
 			}
 
 			if ( win ) {
 				win.scrollTo(
-					!top ? val : win.pageXOffset,
-					top ? val : win.pageYOffset
+					!top ? vol : win.pageXOffset,
+					top ? vol : win.pageYOffset
 				);
 
 			} else {
-				elem[ method ] = val;
+				elem[ method ] = vol;
 			}
-		}, method, val, arguments.length );
+		}, method, vol, arguments.length );
 	};
 } );
 
